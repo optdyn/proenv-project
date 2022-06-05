@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+
+source "$(git rev-parse --show-toplevel)/.git/hooks/common"
+deleteme $0 $@
+

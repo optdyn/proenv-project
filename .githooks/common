@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+readonly repo="$(git rev-parse --show-toplevel)"
+exec_dotd() {
+  readonly pc_dir="${repo}/.git/hooks/${1}.d"
+  shift # removes ${1} param used above by the calling hook
+  if [[ -d ${pc_dir} ]]; then
+    for pc in $(find "${pc_dir}" -mindepth 1); do
+      [[ -x ${pc} ]] && ${pc} $@
+    done
+  fi
+}
+
+deleteme() {
+  echo "Delete '$0' to make it go away"
+  shift
+  echo args = $@
+}
+
